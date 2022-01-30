@@ -191,10 +191,11 @@ while True:
                 
                 if command[1] == "payload":
                     
-                    print("usage: payload -host <host ip> -port <port>")
+                    print("usage: payload -host <host ip> -port <port> -out <path>")
                     print()
                     print("...host - ip address of the host machine")
                     print("...port - port to open connection")
+                    print("....out - output file path")
                     print()
                 
                 if command[1] == "listen":
