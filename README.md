@@ -28,20 +28,22 @@ Commands
 ### Normal
 
 ```
-......help - displays functionality and usage of every command
-......exit - exits the program
-.....clear - clears the screen
-.....flood - floods an address with packets
-......scan - scans an address for open ports
-...exploit - puts console into exploit mode
+.......help   displays functionality and usage of every command
+.......exit   exits the program
+......clear   clears the screen
+......flood   floods an address with packets
+.......scan   scans an address for open ports
+......crack   bruteforceses hashed passwords
+....exploit   puts console into exploit mode
 ```
 
 ### Exploit
 
 ```
-......help - displays functionality and usage of every command
-......exit - exits the program
-.....clear - clears the screen
-...payload - generates a payload
-....listen - listens for incoming connections
-......back - returns console to normal mode
+.......help   displays functionality and usage of every command
+.......exit   exits the program
+......clear   clears the screen
+....payload   generates a payload
+.....listen   listens for incoming connections
+.......back   returns console to normal mode
+```
