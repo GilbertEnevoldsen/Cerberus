@@ -6,7 +6,7 @@
 
 ---
 
-  <a title="Python version"><img src="https://img.shields.io/badge/python-3.9-green.svg"></a> <a title="Cerberus version"><img src="https://img.shields.io/badge/version-1.0.0-orange.svg"></a>
+  <a title="Python version"><img src="https://img.shields.io/badge/python-3.9-green.svg"></a> <a title="Cerberus version"><img src="https://img.shields.io/badge/version-1.1.0-orange.svg"></a>
 
 Installation
 ---
@@ -25,7 +25,7 @@ python3 cerberus.py
 Commands
 ---
 
-### Normal
+### Default
 
 ```
 ......help - displays functionality and usage of every command
