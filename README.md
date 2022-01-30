@@ -25,7 +25,7 @@ python3 cerberus.py
 Commands
 ---
 
-### Default
+### Normal
 
 ```
 ......help - displays functionality and usage of every command
