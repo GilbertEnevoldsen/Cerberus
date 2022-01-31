@@ -10,25 +10,6 @@ import time
 import sys
 import os
 
-# Loading
-
-for frame in range(16):
-
-    loading_mapping = {0: "|",
-    1: "/",
-    2: "-",
-    3: "\\"}
-
-
-    loading = loading_mapping[frame % 4]
-
-    print(f"Launching Cerberus {loading}", end="\r")
-    time.sleep(0.1)
-
-for _ in range(100):
-
-    print()
-
 # Importing / Downloading colorama
 
 try:
