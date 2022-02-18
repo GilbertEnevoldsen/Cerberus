@@ -6,7 +6,7 @@
 
 ---
 
- <a title="Python version"><img src="https://img.shields.io/badge/python-3.9-green.svg"></a> <a title="Cerberus version"><img src="https://img.shields.io/badge/version-1.3.0-orange.svg"></a>
+ <a title="Python version"><img src="https://img.shields.io/badge/python-3.9-green.svg"></a> <a title="Cerberus version"><img src="https://img.shields.io/badge/version-1.3.0-orange.svg"></a> <a title="Supported system"><img src="https://img.shields.io/badge/systems-windows linux mac-blue.svg"></a>
 
 ```
           _     
