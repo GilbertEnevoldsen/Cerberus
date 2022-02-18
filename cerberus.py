@@ -290,12 +290,18 @@ while True:
 
         if command[0] == "encrypt":
             
-            key = None
+            try:
             
-            file = command[command.index("-file") + 1]
-            if "-key" in command: key = command[command.index("-key") + 1]
+                key = None
+                
+                file = command[command.index("-file") + 1]
+                if "-key" in command: key = command[command.index("-key") + 1]
             
-            encrypt(file, key)
+                encrypt(file, key)
+            
+            except:
+                
+                print("\033[31m\n [!] command error\033[39m\n")
 
         if command[0] == "exploit":
 
@@ -425,10 +431,16 @@ while True:
         
         if command[0] == "botnet":
             
-            host = command[command.index("-host") + 1]
-            port = int(command[command.index("-port") + 1])
+            try:
             
-            botnet_handler(host, port)
+                host = command[command.index("-host") + 1]
+                port = int(command[command.index("-port") + 1])
+                
+                botnet_handler(host, port)
+            
+            except:
+                
+                print("\033[31m\n [!] command error\033[39m\n")
         
         if command[0] == "back":
 
