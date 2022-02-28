@@ -27,7 +27,7 @@ Installation
 
 ```
 # clone the repository
-git clone 
+git clone https://github.com/GilbertEnevoldsen/Cerberus
 
 # navigate to folder
 cd Cerberus
